@@ -1,0 +1,4 @@
+SPECIFIC OBJECTIVE:
+1. To identify the most common and critical household events (e.g., door knocks, baby cries, fire alarms) that hearing-impaired individuals often miss. 2. To design a multi-trigger detection system using appropriate sensors (e.g., sound, vibration, smoke sensors) capable of identifying specific environmental cues. 3. To develop a wearable device that can provide distinct vibration feedback
+patterns corresponding to different events.  To ensure the system operates fully offline, without reliance on smart-phones, apps, or internet connectivity. 5. To prototype and test the system with real users to evaluate functionality, reliability, and usability. 6. To refine the design based on user feedback and performance analysis for
+improved efficiency
