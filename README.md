@@ -42,51 +42,6 @@ Reliability Testing: Ensuring the sensors do not trigger "false positives" from 
 User Feedback Loops: Testing the "vibration vocabulary" with users to ensure the patterns are easy to memorize and distinguish under stress.ental monitorin <img width="1024" height="575" alt="image" src="https://github.com/user-attachments/assets/e227c83d-0dfc-4f23-84a2-d65b7c661098" />
 Input $\rightarrow$ Digitize $\rightarrow$ Compare to Patterns $\rightarrow$ Trigger Haptics $\rightarrow$ Wireless Broadcast
 
-## how the system works
-
-1. Sensing Phase (The Transmitter)
-The Arduino Nano/ESP32 at the "Hub" constantly polls the sensors:
-
-Smoke Sensor (MQ): Checks if the analog value exceeds a safety threshold (e.g., > 400).
-
-Sound Sensor: Monitors for high-decibel spikes (like a baby cry or a loud alarm).
-
-Door Button: Waits for a "High" signal (the physical press of a visitor).
-
-2. Signal Packaging (The Logic)
-Once a sensor is triggered, the Hub assigns a Unique Integer Code to that event. This keeps the nRF24 transmission fast and reliable:
-
-Code 1 = Smoke/Fire
-
-Code 2 = Sound/Cry
-
-Code 3 = Door Knock
-
-3. Wireless Transmission (nRF24L01)
-The Hub uses the radio.write() command to send that small integer over the 2.4GHz frequency.
-
-Offline Security: Because it’s a direct radio link, it works even if your Wi-Fi is down or you have no phone signal.
-
-4. Haptic Feedback (The Receiver/Wearable)
-The Wearable unit is constantly "listening" with its own nRF24L01:
-
-Reception: It receives the Code (1, 2, or 3).
-
-Pattern Execution: It uses an if or switch statement to vibrate the ERM Motor differently for each coAuditory Exclusion: Converts critical sound-based alerts (which are invisible to the hearing-impaired) into tangible, tactile vibrations.
-
-Emergency Response Gap: Eliminates the risk of missing life-threatening signals like smoke or gas alarms, especially during sleep.
-
-Social Isolation: Prevents missed visitors or deliveries by providing an instant notification when the door button is pressed.
-
-Visual Dependency: Solves the "line-of-sight" problem where flashing light alerts are useless if the user is in a different room or has their back turned.
-
-Connectivity Barriers: Removes the need for expensive smartphones, apps, or stable internet, making the system reliable during power outages or in rural areas.
-
-Privacy & Security: By using a local nRF24L01 radio link, no personal data is sent to the cloud, protecting the user's home privacy.
-
-Economic Accessibility: Provides a low-cost alternative to expensive, medical-grade assistive technologies that many cannot afford.
-
-Situational Awareness: Restores a sense of independence and security by keeping the user "connected" to their environment 24/7.de
 
 ## what problem it is solving
 
@@ -103,6 +58,59 @@ Privacy & Security: By using a local nRF24L01 radio link, no personal data is se
 Economic Accessibility: Provides a low-cost alternative to expensive, medical-grade assistive technologies that many cannot afford.
 
 Situational Awareness: Restores a sense of independence and security by keeping the user "connected" to their environment 24/7.
+
+## how the system work
+
+Step 1: Power On
+Flip the House Mode switch to turn on the system.
+
+This also powers up the wearable alert device.
+
+Wait about one minute for the wearable to fully connect.
+
+Step 2: Baby Cry Detection
+The sound sensor is activated first.
+
+If it detects a baby crying:
+
+It turns on a motor that drives a buzzer on the arm.
+
+The buzzer then triggers a blue LED light.
+
+The blue light stays on for a preset duration chosen by the user.
+
+Step 3: Smoke Detection
+Next, the smoke sensor is switched on.
+
+If smoke is detected:
+
+A vibration motor is activated.
+
+A red LED light turns on.
+
+Because smoke is critical, the red light and vibration run for a longer time.
+
+You can stop this alert by pressing the acknowledge button, which resets all sensors.
+
+Step 4: Turning Off
+If the person wants to rest or sleep, they can simply switch off House Mode.
+
+This action shuts down the wearable system and all sensors.
+
+✅ Summary
+The system works in a clear sequence:
+
+Power on → wearable connects.
+
+Sound sensor → buzzer + blue light.
+
+Smoke sensor → vibration + red light.
+
+Acknowledge button → stop alerts.
+
+Main switch → turn everything off.
+
+
 
 
 
